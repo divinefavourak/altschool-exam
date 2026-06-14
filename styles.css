@@ -1,0 +1,95 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.topbar {
+    background-color: #1A3C5E;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.search-box{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    margin: 20px;
+    
+}
+.search-box button{
+    background-color: #1A3C5E;
+    color: white;
+    padding: 10px;
+    border: none;
+    height: 40px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.search-box textarea{
+    padding: 10px;
+    border: solid black 1px;
+    border-radius: 20px;
+    width: 200px;
+    height: 20px;
+    outline: none;
+}
+
+table {
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    margin: 20px;
+    border-spacing: 20px;
+}
+
+#weather-detail-table th{
+    padding: 10px;
+    border: solid black 1px;
+    border-radius: 10px;
+}
+#weather-detail-table td{
+    padding: 10px;
+    border: solid black 1px;
+    border-radius: 10px;
+}
+
+.five-day-forecast{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin: 20px;
+}
+.forecast-day{
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+}
+
+.city-card{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin: 20px;
+    background-color: #2E86AB;
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+    
