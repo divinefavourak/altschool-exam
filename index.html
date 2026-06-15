@@ -3,38 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>☁️ Weather App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <main>
-    <!-- Top bar saying weather app -->
+        <header>
     <div id="topbar" class="topbar">
-     <h1>Weather App</h1> 
-     <!-- Rounded switch -->
-     <div class="switch-container">
-     <h3>°C</h3>
-      <label class="switch">
-        <input type="checkbox">
-        <span class="slider round"></span>
-      </label>
-      <h3>°F</h3>
+        <h1>☁️ Weather App</h1> 
+        
+        <!-- Search box moved inside the header -->
+        <div class="search-box">
+            <input type="text" name="search-box" id="search-box" list="search-history-list" placeholder="Search city" class="search-box-input">
+            <datalist id="search-history-list"></datalist>
+            <button id="search-btn">Search</button>
+        </div>
+        
+        <!-- Rounded switch -->
+        <div class="switch-container">
+            <h3>°C</h3>
+            <label class="switch">
+                <input type="checkbox" id="temp-switch">
+                <span class="slider round"></span>
+            </label>
+            <h3>°F</h3>
+        </div>
     </div>
-    </div>
-    <!--Search box-->
-    <div class="search-box">
-        <textarea name="search" id="search-box" placeholder="Search city"></textarea>
-        <button id="search-btn">Search</button>
-    </div>
+</header>
+
  <div class="error-message" id="error-message">Unable to get weather</div>
     <!--Hero section-->
     <hero>
         <div id="city-card" class="city-card">
         <!-- weather Icon -->
-        <h1 id="weather-icon"></h1>
-        <h1 id="city-name">Lagos, Nigeria</h1>
-        <h3 id="temperature"> 28°C</h3>
-        <h4 id="description">Sunny</h4>
+         <div class='spinner'></div>
+         <p id="loading-text" >Loading weather data......</p>
+        <h2 id="weather-icon"></h2>
+        <h1 id="city-name"></h1>
+        <div class="weather-info-row">
+            <h4 id="description"></h4>
+            <h4 id="temperature"></h4>
+        </div>
+        
     </div>
     </hero>
  <!--Weather detail section-->
@@ -47,9 +57,9 @@
       
     </tr>
     <tr>
-      <td id="humidity-value">60%</td>
-      <td id="wind-speed-value">5km/h</td>
-      <td id="uv-index-value">28°C</td>
+      <td id="humidity-value">--</td>
+      <td id="wind-speed-value">--</td>
+      <td id="uv-index-value">--</td>
     </tr>
   </table>
  </div>
@@ -58,13 +68,14 @@
     <h2>5-day forecast</h2>
     <div class="forecast" id="forecast">
         <table id="forecast-table">
-            <thead>
+            <!-- <thead>
             <tr>
                 <th id="forecast-day-name">Day of the Week</th>
-                <th id="forecast-day-temperature">Temperature</th>
                 <th id="forecast-day-description">Description</th>
+                <th id="forecast-day-temperature">Temperature</th>
+                
             </tr>
-            </thead>
+            </thead> -->
             <tbody id="forecast-day"></tbody>
         </table>
         <!-- <div class="forecast-day">

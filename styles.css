@@ -1,20 +1,25 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: white;
-    color: black;
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+main{
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
 .topbar {
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
+    align-items: center;
     background-color: #1A3C5E;
     color: white;
-    padding: 10px;
-    text-align: center;
+    padding: 10px 20px;
 }
 
 .topbar h1 {
@@ -25,23 +30,44 @@ body {
 
 .search-box{
     display: flex;
-    justify-content: center;
     flex-direction: row;
     gap: 10px;
     align-items: center;
-    margin: 20px;
+    margin: 0px;
     
 }
+.search-box-input {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    width:200px;
+    height:20px;
+    outline: none;
+}
 .search-box button{
-    background-color: #1A3C5E;
+    background-color: #2E86AB;
     color: white;
     padding: 10px;
     border: none;
     height: 40px;
     border-radius: 30px;
     cursor: pointer;
+    transition: 0.2s ease;
 }
-.search-box textarea{
+.search-box button:hover {
+    background-color: #1d5f7a;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.search-box button:active {
+    transform: translateY(0px);
+}
+.search-box input:focus {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+.search-box input{
     padding: 10px;
     border: solid black 1px;
     border-radius: 20px;
@@ -57,16 +83,23 @@ table {
     margin: 20px;
     border-spacing: 20px;
 }
-
+#weather-detail-table{
+    width: 100%;
+    border-collapse: collapse;
+}
 #weather-detail-table th{
     padding: 10px;
+    width: 33.33%;
     border: solid black 1px;
     border-radius: 10px;
+    text-align: center;
 }
 #weather-detail-table td{
     padding: 10px;
+    width: 33.33%;
     border: solid black 1px;
     border-radius: 10px;
+    text-align: center;
 }
 
 .city-card{
@@ -81,7 +114,13 @@ table {
     border-radius: 20px;
     padding: 20px;
 }
+.weather-info-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 
+}
 .error-message{
     background-color: #FEE2E2;
     color: #B91C1C;
@@ -121,7 +160,11 @@ table {
     margin: 20px auto;
     padding: 0 10px;
 }
-
+.five-day-forecast h2{
+    font-size: 24px;
+    font-weight: 600;
+    margin: 20px;
+}
 #forecast-table th {
     background-color: #2E86AB;
     color: white;
@@ -142,10 +185,11 @@ table {
     border-bottom: none; /* Removes bottom border on the last forecast day */
 }
 
-/* Optional: Subtle background change when hovering over a day row */
+/* Subtle background change when hovering over a day row */
 #forecast-table tr:hover {
-    background-color: #F7FAFC;
+    background-color: #f1f5f9;
     transition: background-color 0.2s ease;
+    cursor: pointer;
 }
 
 
@@ -216,4 +260,114 @@ input:checked + .slider:before {
     justify-content: flex-end;
     gap: 5px;
     align-items: center;
+}
+/* loading text */
+#loading-text{
+    display: none;
+    color: white;
+    margin-top: 10px;
+}
+/* Step 1: define the animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+/* Step 2: apply the animation */
+.fade-in {
+  animation: fadeIn 0.6s ease-out both;
+  /* name  duration  timing  fill-mode */
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #2E86AB;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.box {
+  padding: 24px;
+  background: #2E86AB;
+  color: white;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* weather icon animation*/
+/* spin animation for sun/clear/sky */
+@keyframes slow-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.weather-spin {
+    display: inline-block;
+    animation: slow-spin 10s linear infinite;
+}
+
+/* animation for cloud/fog */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+.weather-float {
+    display: inline-block;
+    animation: float 3s ease-in-out infinite; 
+}
+
+/* animation for storms */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1);}
+}
+
+.weather-pulse {
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@media (max-width: 480px) {
+    .search-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .search-box input {
+        width: 100%;
+    }
+    .city-card {
+        padding: 15px;
+        margin: 10px;
+    }
+    #city-name {
+        font-size: 30px;
+    }
+    #weather-detail-table th, #weather-detail-table td, #forecast-table th, #forecast-table td{
+        font-size: 15px;
+        margin: 10px;
+    }
+    .weather-info-row {
+        flex-direction: column;
+        font-size: 15px;
+    }
+    .switch-container {
+        justify-content: flex-end;
+    }
 }
