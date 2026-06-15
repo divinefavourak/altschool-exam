@@ -3,90 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☁️ Weather App</title>
+    <title>Weather App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <main>
+        <!-- 1. Header Navigation Bar -->
         <header>
-    <div id="topbar" class="topbar">
-        <h1>☁️ Weather App</h1> 
-        
-        <!-- Search box moved inside the header -->
-        <div class="search-box">
-            <input type="text" name="search-box" id="search-box" list="search-history-list" placeholder="Search city" class="search-box-input">
+            <div id="topbar" class="topbar">
+                <h1>Weather App</h1>
+            </div>
+        </header>
+
+        <!-- 2. Search Box Section -->
+        <div class="search-container">
+            <input type="text" name="search-box" id="search-box" list="search-history-list" placeholder="Search city...">
             <datalist id="search-history-list"></datalist>
             <button id="search-btn">Search</button>
         </div>
-        
-        <!-- Rounded switch -->
-        <div class="switch-container">
-            <h3>°C</h3>
-            <label class="switch">
-                <input type="checkbox" id="temp-switch">
-                <span class="slider round"></span>
-            </label>
-            <h3>°F</h3>
-        </div>
-    </div>
-</header>
 
- <div class="error-message" id="error-message">Unable to get weather</div>
-    <!--Hero section-->
-    <hero>
-        <div id="city-card" class="city-card">
-        <!-- weather Icon -->
-         <div class='spinner'></div>
-         <p id="loading-text" >Loading weather data......</p>
-        <h2 id="weather-icon"></h2>
-        <h1 id="city-name"></h1>
-        <div class="weather-info-row">
-            <h4 id="description"></h4>
-            <h4 id="temperature"></h4>
-        </div>
-        
-    </div>
-    </hero>
- <!--Weather detail section-->
- <div class="weather-detail" id="weather-detail">
-  <table id="weather-detail-table">
-    <tr>
-      <th id="humidity">Humidity</th>
-      <th id="wind-speed">Wind Speed</th>
-      <th id="uv-index">UV Index</th>
-      
-    </tr>
-    <tr>
-      <td id="humidity-value">--</td>
-      <td id="wind-speed-value">--</td>
-      <td id="uv-index-value">--</td>
-    </tr>
-  </table>
- </div>
-<!-- Five day forecast section -->
- <section class="five-day-forecast">
-    <h2>5-day forecast</h2>
-    <div class="forecast" id="forecast">
-        <table id="forecast-table">
-            <!-- <thead>
-            <tr>
-                <th id="forecast-day-name">Day of the Week</th>
-                <th id="forecast-day-description">Description</th>
-                <th id="forecast-day-temperature">Temperature</th>
-                
-            </tr>
-            </thead> -->
-            <tbody id="forecast-day"></tbody>
-        </table>
-        <!-- <div class="forecast-day">
-            <h3 class="forecast-day-name">Monday</h3>
-            <h3 class="forecast-day-temperature">28°C</h3>
-            <h3 class="forecast-day-description">Sunny</h3>
-        </div> -->
-    </div>
- </section>
-</main>
-<!-- <button onclick="testWeatherData()">Test Weather Data</button> -->
+        <div class="error-message" id="error-message">Unable to get weather</div>
+
+        <!-- 3. Current Weather Hero Card -->
+        <section class="hero-section">
+            <div id="city-card" class="city-card">
+                <div class="spinner"></div>
+                <p id="loading-text">Loading weather data......</p>
+                <h1 id="weather-icon"></h1>
+                <h1 id="city-name"></h1>
+                <div class="weather-info-row">
+                    <h4 id="description"></h4>
+                    <h4 id="temperature"></h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Stats Row (Humidity, Wind Speed, UV Index) -->
+        <section class="weather-detail-section">
+            <div class="stats-card">
+                <div class="stat-box">
+                    <span class="stat-label">Humidity</span>
+                    <span class="stat-value" id="humidity-value">--</span>
+                </div>
+                <div class="stat-box divider">
+                    <span class="stat-label">Wind</span>
+                    <span class="stat-value" id="wind-speed-value">--</span>
+                </div>
+                <div class="stat-box divider">
+                    <span class="stat-label">UV Index</span>
+                    <span class="stat-value" id="uv-index-value">--</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Five-Day Forecast Section -->
+        <section class="five-day-forecast-section">
+            <h2 class="forecast-title">5-day forecast</h2>
+            <div class="forecast" id="forecast">
+                <div id="forecast-day" class="forecast-list"></div>
+            </div>
+        </section>
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>

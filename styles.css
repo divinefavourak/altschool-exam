@@ -1,315 +1,274 @@
+/* Base Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    background-color: #cbd5e1;
     color: #333;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-main{
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: white;
-    min-height: 100vh;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-.topbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+main {
+    width: 100%;
+    max-width: 480px;
+    margin: 30px 10px;
+    background-color: white;
+    min-height: 90vh;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding-bottom: 25px;
+}
+
+/* 1. Header Navigation Bar */
+.topbar {
     background-color: #1A3C5E;
     color: white;
-    padding: 10px 20px;
+    padding: 16px 20px;
+    text-align: left;
 }
 
 .topbar h1 {
     margin: 0;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.search-box{
+/* 2. Search Container */
+.search-container {
     display: flex;
-    flex-direction: row;
     gap: 10px;
-    align-items: center;
-    margin: 0px;
-    
+    padding: 20px 20px 10px 20px;
 }
-.search-box-input {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 20px;
-    width:200px;
-    height:20px;
+
+#search-box {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
     outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.search-box button{
+
+#search-box:focus {
+    border-color: #2E86AB;
+    box-shadow: 0 0 0 3px rgba(46, 134, 171, 0.15);
+}
+
+#search-btn {
     background-color: #2E86AB;
     color: white;
-    padding: 10px;
     border: none;
-    height: 40px;
-    border-radius: 30px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.2s ease;
-}
-.search-box button:hover {
-    background-color: #1d5f7a;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
 }
 
-.search-box button:active {
-    transform: translateY(0px);
-}
-.search-box input:focus {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-.search-box input{
-    padding: 10px;
-    border: solid black 1px;
-    border-radius: 20px;
-    width: 200px;
-    height: 20px;
-    outline: none;
+#search-btn:hover {
+    background-color: #216684;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-table {
-    justify-content: center;
-    gap: 10px;
-    align-items: center;
-    margin: 20px;
-    border-spacing: 20px;
-}
-#weather-detail-table{
-    width: 100%;
-    border-collapse: collapse;
-}
-#weather-detail-table th{
-    padding: 10px;
-    width: 33.33%;
-    border: solid black 1px;
-    border-radius: 10px;
-    text-align: center;
-}
-#weather-detail-table td{
-    padding: 10px;
-    width: 33.33%;
-    border: solid black 1px;
-    border-radius: 10px;
-    text-align: center;
+#search-btn:active {
+    transform: translateY(0);
 }
 
-.city-card{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    margin: 20px;
-    background-color: #2E86AB;
-    color: white;
-    border-radius: 20px;
-    padding: 20px;
-}
-.weather-info-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-
-}
-.error-message{
+/* Error Message */
+.error-message {
     background-color: #FEE2E2;
     color: #B91C1C;
     border: 1px solid #EF4444;
     padding: 12px 16px;
     border-radius: 8px;
-    margin-top: 15px;
+    margin: 10px 20px;
     font-size: 14px;
     font-weight: 500;
     display: none;
-    margin: 20px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse; /* This merges border lines cleanly */
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden; /* Ensures rounded corners cut off background colors correctly */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Soft shadows */
-}
-
-
-#weather-detail-table td {
-    padding: 16px 20px;
-    text-align: center;
-    color: #2D3748;
-    font-size: 16px;
-    font-weight: 600;
-    border-bottom: 1px solid #EDF2F7;
-}
-
-/* Container adjustments */
-.weather-detail,
-.forecast {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 0 10px;
-}
-.five-day-forecast h2{
-    font-size: 24px;
-    font-weight: 600;
-    margin: 20px;
-}
-#forecast-table th {
+/* 3. Current Weather Hero Card */
+.city-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 20px 20px 20px;
     background-color: #2E86AB;
     color: white;
-    padding: 14px 20px;
-    font-weight: 550;
-    text-align: left;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
 }
 
-#forecast-table td {
-    padding: 16px 20px;
-    text-align: left;
-    color: #4A5568;
-    font-size: 15px;
-    border-bottom: 1px solid #EDF2F7;
+#weather-icon {
+    font-size: 56px;
+    margin: 0;
 }
 
-#forecast-table tr:last-child td {
-    border-bottom: none; /* Removes bottom border on the last forecast day */
+#city-name {
+    margin: 5px 0 0 0;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-/* Subtle background change when hovering over a day row */
-#forecast-table tr:hover {
-    background-color: #f1f5f9;
-    transition: background-color 0.2s ease;
-    cursor: pointer;
-}
-
-
-/*The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-.switch-container {
+.weather-info-row {
     display: flex;
-    justify-content: flex-end;
-    gap: 5px;
+    flex-direction: column;
     align-items: center;
 }
-/* loading text */
-#loading-text{
+
+#temperature {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: white;
+}
+
+#description {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-weight: normal;
+}
+
+/* 4. Stats Card */
+.weather-detail-section {
+    margin: 0 20px 20px 20px;
+}
+
+.stats-card {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 15px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.stat-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-box.divider {
+    border-left: 1px solid #e2e8f0;
+}
+
+.stat-label {
+    color: #718096;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+.stat-value {
+    color: #1a202c;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 5. 5-Day Forecast Section */
+.five-day-forecast-section {
+    margin: 20px;
+}
+
+.forecast-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #718096;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.forecast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.forecast-row-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.forecast-row-card:hover {
+    background-color: #f8fafc;
+    cursor: pointer;
+    transform: translateY(-1px);
+}
+
+.forecast-day-name {
+    font-weight: bold;
+    color: #2d3748;
+    width: 100px;
+}
+
+.forecast-icon {
+    font-size: 24px;
+    text-align: center;
+}
+
+.forecast-temps {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.forecast-temp-max {
+    font-weight: bold;
+    color: #2d3748;
+    font-size: 15px;
+}
+
+.forecast-temp-min {
+    color: #718096;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* --- Animations & Loading --- */
+#loading-text {
     display: none;
     color: white;
-    margin-top: 10px;
-}
-/* Step 1: define the animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg);   }
-  to   { transform: rotate(360deg); }
-}
-
-/* Step 2: apply the animation */
-.fade-in {
-  animation: fadeIn 0.6s ease-out both;
-  /* name  duration  timing  fill-mode */
+    margin: 10px 0 0 0;
+    font-size: 14px;
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #e0e0e0;
-  border-top-color: #2E86AB;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+    width: 36px;
+    height: 36px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
 }
 
-.box {
-  padding: 24px;
-  background: #2E86AB;
-  color: white;
-  font-family: Arial, sans-serif;
-  border-radius: 8px;
-  margin-bottom: 16px;
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-/* weather icon animation*/
-/* spin animation for sun/clear/sky */
+/* Weather Emojis Animations */
 @keyframes slow-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -317,13 +276,12 @@ input:checked + .slider:before {
 
 .weather-spin {
     display: inline-block;
-    animation: slow-spin 10s linear infinite;
+    animation: slow-spin 12s linear infinite;
 }
 
-/* animation for cloud/fog */
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
+    50% { transform: translateY(-4px); }
     100% { transform: translateY(0px); }
 }
 
@@ -332,11 +290,10 @@ input:checked + .slider:before {
     animation: float 3s ease-in-out infinite; 
 }
 
-/* animation for storms */
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1);}
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 
 .weather-pulse {
@@ -344,30 +301,29 @@ input:checked + .slider:before {
     animation: pulse 2s ease-in-out infinite;
 }
 
+/* Media Query (max-width: 480px) */
 @media (max-width: 480px) {
-    .search-box {
-        flex-direction: column;
-        gap: 10px;
+    main {
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+        max-width: 100%;
     }
-    .search-box input {
-        width: 100%;
-    }
-    .city-card {
+    
+    .search-container {
         padding: 15px;
-        margin: 10px;
     }
-    #city-name {
-        font-size: 30px;
+    
+    .city-card {
+        margin: 10px 15px;
+        padding: 20px;
     }
-    #weather-detail-table th, #weather-detail-table td, #forecast-table th, #forecast-table td{
-        font-size: 15px;
-        margin: 10px;
+    
+    .weather-detail-section {
+        margin: 0 15px 15px 15px;
     }
-    .weather-info-row {
-        flex-direction: column;
-        font-size: 15px;
-    }
-    .switch-container {
-        justify-content: flex-end;
+    
+    .five-day-forecast-section {
+        margin: 15px;
     }
 }
