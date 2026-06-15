@@ -4,15 +4,13 @@ const searchBox = document.getElementById('search-box');
 const cityDisplay = document.getElementById('city-name');
 const temperature = document.getElementById('temperature');
 const description = document.getElementById('description');
-const humidity = document.getElementById('humidity');
-const feelsLike = document.getElementById('feels-like');
-const windSpeed = document.getElementById('wind-speed');
+const weatherIcon = document.getElementById('weather-icon');
+const uvIndexValue = document.getElementById('uv-index-value');
 const humidityValue = document.getElementById('humidity-value');
-const feelsLikeValue = document.getElementById('feels-like-value');
 const windSpeedValue = document.getElementById('wind-speed-value');
 const forecastDay = document.getElementById('forecast-day');
 const geolocationApi = "https://geocoding-api.open-meteo.com/v1/search?&count=1&language=en&format=json";
-const weatherDataApi = "https://api.open-meteo.com/v1/forecast?current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto";
+const weatherDataApi = "https://api.open-meteo.com/v1/forecast?current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,uv_index_max,weather_code&timezone=auto";
 const errorMessage = document.getElementById('error-message');
 
 
@@ -57,42 +55,57 @@ async function displayWeatherData(cityName, countryName) {
     if(weatherData){
         const weatherResults = JSON.parse(weatherData);
         cityDisplay.innerHTML = `${cityName}, ${countryName}`;
-        temperature.innerHTML = `${weatherResults.current.temperature_2m}`;
+        temperature.innerHTML = `${weatherResults.current.temperature_2m} °C`;
         
-        humidity.innerHTML = `${weatherResults.current_units.weather_code}`;
-        feelsLike.innerHTML = `${weatherResults.current_units.relative_humidity_2m}`;
-        windSpeed.innerHTML = `${weatherResults.current_units.wind_speed_10m}`;
-        humidityValue.innerHTML = `${weatherResults.current.relative_humidity_2m}%`;
-        //feelsLikeValue.innerHTML = weatherResults.current.relative_humidity_2m;
-        windSpeedValue.innerHTML = `${weatherResults.current.wind_speed_10m} km/h`;
+        //get the description and icon using the weather code
+        const weatherDetails = getWeatherCodeDescription(weatherResults.current.weather_code);
+        //set the icon now at the top of the hero section wiht the nav bar
+        weatherIcon.innerHTML = `${weatherDetails.icon}`;
+        //set the weather description
+        description.innerHTML = `${weatherDetails.description}`;
+
+        humidityValue.innerHTML = `${weatherResults.current.relative_humidity_2m} %`;
+        windSpeedValue.innerHTML = `${weatherResults.current.wind_speed_10m} Km/hr`;
+        //get today's uv index
+        const todayUv  = getUvIndexDescription(weatherResults.daily.uv_index_max[0]);
+        //get text description
+        uvIndexValue.innerHTML = `${todayUv}`;
+        
     }
 }
 
-async function getWeatherCodeDescription(description) {
-    const weatherCode = localStorage.getItem("")
-    const weatherDesc = getWeatherCodeDescription(weatherResults.current.weather_code);
-description.innerHTML = weatherDesc;
-
-    switch (weatherCode){
+function getWeatherCodeDescription(weatherCode) {
+    switch (weatherCode) {
         case 0:
-            return "Clear sky" || "☀";
-        case 1 || 2 || 3:
-            return "Partly cloudy" || "⛅";
-        case 45 || 48 :
-            return "Foggy" || "🌫";
-        case 51 || 53 || 55:
-            return "Drizzle" || "🌦";
-        case 61 || 63 || 65:
-            return "Rain" || "🌧";
-        case 71 || 73 || 75:
-            return "Snow fall" || "❄";
-        case 80 || 81 || 82:
-            return "Rain showers" || "🌦";
+            return { description: "Clear sky", icon: "☀️" };
+        case 1:
+        case 2:
+        case 3:
+            return { description: "Partly cloudy", icon: "⛅"};
+        case 45:
+        case 48:
+            return { description: "Foggy", icon: "🌫"};
+        case 51:
+        case 53:
+        case 55:
+            return { description: "Drizzle", icon: "🌧️"};
+        case 61:
+        case 63:
+        case 65:
+            return {description: "Rain", icon: "🌧️"};
+        case 71:
+        case 73:
+        case 75:
+            return {description: "Snow", icon: "❄️"};
+        case 80:
+        case 81:
+        case 82:
+            return {description:"Rain showers", icon: "🌦"};
         case 95:
-            return "Thunder Storm" || "⛈";
+            return {description: "Thunderstorm", icon: "⛈️"};
         
         default:
-            return "Unknown Weather" || "🫠";
+            return { description: "Weather for not found skii", icon: "🫠"};
     }
     
 }
@@ -104,3 +117,18 @@ searchBtn.addEventListener("click", async () => {
     await displayWeatherData(cityName, countryName);
 });
 //test error message box
+
+//uv index functipon
+function getUvIndexDescription(uvIndexValue){
+    if (uvIndexValue <= 2){
+        return "Low";
+    }else if (uvIndexValue <= 5){
+        return "Moderate";
+    }else if (uvIndexValue <= 7){
+        return "High";
+    }else if (uvIndexValue <= 10){
+        return "Very High";
+    } else {
+        return "Extreme";
+    }
+}
