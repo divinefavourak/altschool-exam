@@ -10,7 +10,16 @@
     <main>
     <!-- Top bar saying weather app -->
     <div id="topbar" class="topbar">
-     <h1>Weather App</h1>
+     <h1>Weather App</h1> 
+     <!-- Rounded switch -->
+     <div class="switch-container">
+     <h3>°C</h3>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      <h3>°F</h3>
+    </div>
     </div>
     <!--Search box-->
     <div class="search-box">
@@ -47,16 +56,26 @@
 <!-- Five day forecast section -->
  <section class="five-day-forecast">
     <h2>5-day forecast</h2>
-    <div class="forecast">
-        <div class="forecast-day">
+    <div class="forecast" id="forecast">
+        <table id="forecast-table">
+            <thead>
+            <tr>
+                <th id="forecast-day-name">Day of the Week</th>
+                <th id="forecast-day-temperature">Temperature</th>
+                <th id="forecast-day-description">Description</th>
+            </tr>
+            </thead>
+            <tbody id="forecast-day"></tbody>
+        </table>
+        <!-- <div class="forecast-day">
             <h3 class="forecast-day-name">Monday</h3>
             <h3 class="forecast-day-temperature">28°C</h3>
             <h3 class="forecast-day-description">Sunny</h3>
-        </div>
+        </div> -->
     </div>
  </section>
 </main>
-<button onclick="testWeatherData()">Test Weather Data</button>
+<!-- <button onclick="testWeatherData()">Test Weather Data</button> -->
     <script src="script.js"></script>
 </body>
 </html>

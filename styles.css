@@ -8,6 +8,9 @@ body {
 }
 
 .topbar {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
     background-color: #1A3C5E;
     color: white;
     padding: 10px;
@@ -66,20 +69,6 @@ table {
     border-radius: 10px;
 }
 
-.five-day-forecast{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    margin: 20px;
-}
-.forecast-day{
-    border: solid black 1px;
-    border-radius: 10px;
-    padding: 10px;
-    width: 200px;
-}
-
 .city-card{
     display: flex;
     justify-content: center;
@@ -104,4 +93,127 @@ table {
     font-weight: 500;
     display: none;
     margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* This merges border lines cleanly */
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden; /* Ensures rounded corners cut off background colors correctly */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Soft shadows */
+}
+
+
+#weather-detail-table td {
+    padding: 16px 20px;
+    text-align: center;
+    color: #2D3748;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid #EDF2F7;
+}
+
+/* Container adjustments */
+.weather-detail,
+.forecast {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+#forecast-table th {
+    background-color: #2E86AB;
+    color: white;
+    padding: 14px 20px;
+    font-weight: 550;
+    text-align: left;
+}
+
+#forecast-table td {
+    padding: 16px 20px;
+    text-align: left;
+    color: #4A5568;
+    font-size: 15px;
+    border-bottom: 1px solid #EDF2F7;
+}
+
+#forecast-table tr:last-child td {
+    border-bottom: none; /* Removes bottom border on the last forecast day */
+}
+
+/* Optional: Subtle background change when hovering over a day row */
+#forecast-table tr:hover {
+    background-color: #F7FAFC;
+    transition: background-color 0.2s ease;
+}
+
+
+/*The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.switch-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    align-items: center;
 }

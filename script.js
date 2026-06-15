@@ -12,7 +12,7 @@ const forecastDay = document.getElementById('forecast-day');
 const geolocationApi = "https://geocoding-api.open-meteo.com/v1/search?&count=1&language=en&format=json";
 const weatherDataApi = "https://api.open-meteo.com/v1/forecast?current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,uv_index_max,weather_code&timezone=auto";
 const errorMessage = document.getElementById('error-message');
-
+const tempSwitch = document.getElementById('temp-switch');
 
 let city = "Lagos";
 
@@ -71,9 +71,11 @@ async function displayWeatherData(cityName, countryName) {
         //get text description
         uvIndexValue.innerHTML = `${todayUv}`;
         
+        //five day forecast logiic
+        await getFiveDayForecast();       
     }
 }
-
+//function for weather code description
 function getWeatherCodeDescription(weatherCode) {
     switch (weatherCode) {
         case 0:
@@ -109,14 +111,14 @@ function getWeatherCodeDescription(weatherCode) {
     }
     
 }
-
+//event listener for search button
 searchBtn.addEventListener("click", async () => {
     const location = searchBox.value;
     const {latitude, longitude, countryName, cityName} = await getGeolocation(location);
     await getWeatherData(latitude, longitude);
     await displayWeatherData(cityName, countryName);
 });
-//test error message box
+
 
 //uv index functipon
 function getUvIndexDescription(uvIndexValue){
@@ -130,5 +132,91 @@ function getUvIndexDescription(uvIndexValue){
         return "Very High";
     } else {
         return "Extreme";
+    }
+}
+
+//five day forecast function
+async function getFiveDayForecast(latitude, longitude) {
+    try{
+        const response = localStorage.getItem("weatherData");
+        const weatherResults = JSON.parse(response);
+      const daily = weatherResults.daily;
+        let forecastHtml = '';
+        
+        //loop for the next five day
+        for (let i = 1; i<=5; i++){
+            const date = daily.time[i];
+            const maxTemperature = daily.temperature_2m_max[i];
+            const minTemperature = daily.temperature_2m_min[i];
+            const uvIndex = daily.uv_index_max[i];
+            const weatherCode = daily.weather_code[i];
+
+            //format the date to get the day of the week
+            const dayOfWeek = new Date(date).toLocaleDateString('en-US', {weekday:'long'});
+            //get weather description again for the table
+            const weatherCondition = getWeatherCodeDescription(weatherCode)
+            forecastHtml += `
+            <tr>
+            <td>${dayOfWeek}</td>
+            <td>${minTemperature}°C - ${maxTemperature}°C</td>
+            <td>${weatherCondition.icon}</td>
+            </tr>
+            `
+            
+        }
+        //update and render the DOM table after loop is done
+        forecastDay.innerHTML = forecastHtml;
+
+        
+    }
+    //five day error
+    catch(error){
+    console.error("Error displaying five day forecast:", error);      
+    }
+}
+
+//automatically get user's geolocation from browser via in-built geoloaction api
+window.onload = () => {
+    //1. check if browser supports geolocation
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            //asks for user's permission to use geolocation
+            async (position) => {
+                const lat = position.coords.latitude;
+                const long = position.coords.longitude;
+                
+                //get weather data  using user's real coordinates
+                await getWeatherData(lat, long);
+
+                //display the location of the user as current location
+                displayWeatherData("Current location", "");
+
+            },
+            async (error) => {
+                console.warn("Geolocation access was denied. Using default location....", error);
+                loadDefaultCity();
+                
+            }
+        );
+    } else {
+        console.warn("Geolocation not supported by browser. Using default location....");
+        loadDefaultCity();
+    }
+    
+};
+
+async function loadDefaultCity() {
+    const {latitude, longitude, countryName, cityName} = await getGeolocation("Lagos");
+    await getWeatherData(latitude, longitude);
+     displayWeatherData(cityName, countryName);
+}
+
+function toggleCelsiusFahrenheit(){
+    if(checkbox.checked){
+    const fahrenheit = temperature * 9/5 + 32;
+    temperature.innerHTML = `${fahrenheit} °F`;
+    }else{
+        const celsius = temperature - 32 * 5/9;
+        temperature.innerHTML = `${celsius} °C`;
     }
 }
